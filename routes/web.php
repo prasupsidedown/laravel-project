@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TripController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -10,6 +11,8 @@ Route::get('/', function () {
 Route::get('/agen', function () {
     return view('daftar_agen');
 });
+
+Route::resource('trips', TripController::class);
 
 // Login
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');

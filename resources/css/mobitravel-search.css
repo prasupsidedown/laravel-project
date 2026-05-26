@@ -1,0 +1,807 @@
+/* ============================================================
+   mobitravel-search.css
+   Letakkan di: public/css/mobitravel-search.css
+   Include di layout: <link rel="stylesheet" href="{{ asset('css/mobitravel-search.css') }}">
+   ============================================================ */
+
+/* ──────────────────────────────────────────
+   DESIGN TOKENS (selaraskan dengan token
+   utama di file CSS MobiTravel kamu)
+   ────────────────────────────────────────── */
+:root {
+    --forest: #1a3328;
+    --moss: #2d5a3d;
+    --sage: #4e8060;
+    --mist: #a8c5b0;
+    --cream: #f5f0e8;
+    --ivory: #faf8f3;
+    --sand: #e8dfc8;
+    --terra: #c17f3b;
+    --gold: #e8a83e;
+    --ink: #2e2e2e;
+    --muted: #7a7a6e;
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ──────────────────────────────────────────
+   HALAMAN — sistem SPA sederhana
+   Semua <div class="page"> disembunyikan.
+   Hanya yang punya class .active yang tampil.
+   ────────────────────────────────────────── */
+.page {
+    display: none;
+}
+.page.active {
+    display: block;
+}
+
+/* ══════════════════════════════════════════
+   HALAMAN PENCARIAN
+   ══════════════════════════════════════════ */
+.search-hero {
+    background: var(--forest);
+    padding: 32px 24px 24px;
+}
+.search-hero h1 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 22px;
+    color: var(--cream);
+    margin-bottom: 4px;
+}
+.search-hero p {
+    font-size: 13px;
+    color: rgba(245, 240, 232, 0.6);
+}
+
+.search-form {
+    background: #fff;
+    border-radius: 14px;
+    padding: 20px;
+    margin: 20px 24px;
+    border: 0.5px solid var(--sand);
+    box-shadow: 0 4px 20px rgba(26, 51, 40, 0.08);
+}
+
+.sf-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+.sf-row3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.sf-field label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+.sf-field select,
+.sf-field input {
+    width: 100%;
+    border: 1.5px solid var(--sand);
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 13px;
+    color: var(--ink);
+    background: var(--ivory);
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    transition: border-color 0.2s;
+}
+.sf-field select:focus,
+.sf-field input:focus {
+    border-color: var(--sage);
+    box-shadow: 0 0 0 3px rgba(78, 128, 96, 0.12);
+}
+
+.cari-btn {
+    width: 100%;
+    background: var(--forest);
+    color: var(--cream);
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background 0.2s,
+        transform 0.15s var(--ease-bounce);
+}
+.cari-btn:hover {
+    background: var(--moss);
+}
+.cari-btn:active {
+    transform: scale(0.98);
+}
+
+/* ══════════════════════════════════════════
+   HALAMAN HASIL PENCARIAN
+   ══════════════════════════════════════════ */
+.results-header {
+    background: var(--forest);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.back-btn {
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    color: var(--cream);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+.back-btn:hover {
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.results-title {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 17px;
+    color: var(--cream);
+}
+.results-sub {
+    font-size: 11px;
+    color: rgba(245, 240, 232, 0.6);
+    margin-top: 2px;
+}
+
+.results-meta {
+    padding: 10px 20px;
+    background: var(--cream);
+    border-bottom: 1px solid var(--sand);
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.meta-chip {
+    font-size: 11px;
+    background: #fff;
+    border: 1px solid var(--sand);
+    border-radius: 20px;
+    padding: 3px 10px;
+    color: var(--muted);
+}
+.meta-chip.highlight {
+    background: #d4eddb;
+    color: #1a5c2a;
+    border-color: #a8d5b5;
+}
+
+.results-body {
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.result-count {
+    font-size: 12px;
+    color: var(--muted);
+}
+.result-count strong {
+    color: var(--forest);
+}
+
+/* Kartu Agen di halaman hasil */
+.agent-card {
+    background: #fff;
+    border: 1.5px solid var(--sand);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex;
+    cursor: pointer;
+    transition:
+        box-shadow 0.25s,
+        transform 0.25s var(--ease-bounce);
+}
+.agent-card:hover {
+    box-shadow: 0 8px 28px rgba(26, 51, 40, 0.12);
+    transform: translateY(-3px);
+}
+.agent-card-icon {
+    width: 90px;
+    min-height: 90px;
+    background: var(--mist);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+    color: var(--forest);
+}
+.agent-card-body {
+    padding: 12px 14px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+.agent-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 2px;
+}
+.agent-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--forest);
+}
+.agent-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: #d4eddb;
+    color: #1a5c2a;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.agent-city {
+    font-size: 11px;
+    color: var(--muted);
+}
+.agent-tags {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin: 4px 0;
+}
+.tag {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 20px;
+    background: var(--cream);
+    border: 1px solid var(--sand);
+    color: var(--muted);
+}
+.agent-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+}
+.agent-rating {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--terra);
+}
+.agent-rating span {
+    font-weight: 400;
+    color: var(--muted);
+    font-size: 11px;
+}
+.agent-price {
+    font-size: 12px;
+    color: var(--muted);
+}
+.agent-price strong {
+    color: var(--forest);
+    font-size: 13px;
+}
+.pilih-btn {
+    background: var(--gold);
+    color: var(--forest);
+    border: none;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background 0.15s,
+        transform 0.15s;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.pilih-btn:hover {
+    background: var(--terra);
+    color: #fff;
+}
+
+.no-result {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* ══════════════════════════════════════════
+   HALAMAN FORM PEMESANAN
+   ══════════════════════════════════════════ */
+.booking-header {
+    background: var(--forest);
+    padding: 16px 20px;
+}
+.booking-header h2 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 18px;
+    color: var(--cream);
+    margin-bottom: 3px;
+}
+.booking-header p {
+    font-size: 12px;
+    color: rgba(245, 240, 232, 0.6);
+}
+
+.booking-agent-strip {
+    background: var(--moss);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.agent-strip-icon {
+    font-size: 22px;
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.agent-strip-name {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--cream);
+}
+.agent-strip-city {
+    font-size: 11px;
+    color: var(--mist);
+}
+
+.booking-body {
+    padding: 16px 20px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Bagian-bagian form */
+.form-section {
+    background: #fff;
+    border: 0.5px solid var(--sand);
+    border-radius: 12px;
+    padding: 16px;
+}
+.form-section-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 14px;
+    font-weight: 600;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.form-field.full {
+    grid-column: 1 / -1;
+}
+
+.form-field label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--muted);
+    font-weight: 500;
+}
+.form-field input,
+.form-field select,
+.form-field textarea {
+    border: 1.5px solid var(--sand);
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 13px;
+    color: var(--ink);
+    background: var(--ivory);
+    outline: none;
+    appearance: none;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+.form-field input:read-only {
+    background: var(--cream);
+    color: var(--muted);
+    cursor: default;
+}
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+    border-color: var(--sage);
+    box-shadow: 0 0 0 3px rgba(78, 128, 96, 0.12);
+}
+.form-field textarea {
+    resize: vertical;
+    min-height: 72px;
+}
+
+/* Estimasi Biaya */
+.price-preview {
+    background: var(--cream);
+    border: 1px solid var(--sand);
+    border-radius: 8px;
+    padding: 14px 16px;
+}
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 6px;
+}
+.price-row.total {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--forest);
+    border-top: 1px solid var(--sand);
+    padding-top: 10px;
+    margin-top: 4px;
+    margin-bottom: 0;
+}
+
+.submit-btn {
+    background: var(--forest);
+    color: var(--cream);
+    border: none;
+    border-radius: 10px;
+    padding: 13px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition:
+        background 0.2s,
+        transform 0.15s;
+}
+.submit-btn:hover {
+    background: var(--moss);
+}
+.submit-btn:active {
+    transform: scale(0.98);
+}
+
+.cancel-btn {
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--sand);
+    border-radius: 10px;
+    padding: 11px;
+    font-size: 13px;
+    cursor: pointer;
+    width: 100%;
+    transition: border-color 0.2s;
+}
+.cancel-btn:hover {
+    border-color: var(--muted);
+    color: var(--ink);
+}
+
+/* ══════════════════════════════════════════
+   HALAMAN PESANAN SAYA
+   ══════════════════════════════════════════ */
+.orders-header {
+    background: var(--forest);
+    padding: 16px 20px;
+}
+.orders-header h2 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 18px;
+    color: var(--cream);
+    margin-bottom: 3px;
+}
+.orders-header p {
+    font-size: 12px;
+    color: rgba(245, 240, 232, 0.6);
+}
+
+.orders-body {
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.order-card {
+    background: #fff;
+    border: 1.5px solid var(--sand);
+    border-radius: 14px;
+    padding: 16px;
+    transition: box-shadow 0.2s;
+}
+.order-card:hover {
+    box-shadow: 0 4px 16px rgba(26, 51, 40, 0.08);
+}
+
+.order-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+.order-id {
+    font-size: 10px;
+    color: var(--muted);
+    font-family: "DM Mono", monospace;
+    margin-bottom: 3px;
+}
+.order-agent {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--forest);
+    margin-bottom: 2px;
+}
+.order-route {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* Badge status */
+.order-status {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.status-pending {
+    background: #fef3cd;
+    color: #856404;
+}
+.status-confirmed {
+    background: #d4eddb;
+    color: #1a5c2a;
+}
+.status-cancelled {
+    background: #f8d7da;
+    color: #842029;
+}
+
+.order-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+.detail-item .dl {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 2px;
+}
+.detail-item .dv {
+    font-size: 12px;
+    color: var(--ink);
+    font-weight: 500;
+}
+.order-total {
+    color: var(--forest) !important;
+}
+
+.order-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.action-btn {
+    flex: 1;
+    min-width: 70px;
+    padding: 7px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+    text-align: center;
+}
+.btn-detail {
+    background: var(--cream);
+    color: var(--forest);
+    border: 1px solid var(--sand);
+}
+.btn-edit {
+    background: #e8f4fd;
+    color: #0c447c;
+    border: 1px solid #b5d4f4;
+}
+.btn-cancel {
+    background: #fdf2f2;
+    color: #842029;
+    border: 1px solid #f7c1c1;
+}
+.btn-delete {
+    background: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5a1a1;
+}
+.btn-detail:hover {
+    background: var(--sand);
+}
+.btn-edit:hover {
+    background: #b5d4f4;
+}
+.btn-cancel:hover {
+    background: #f7c1c1;
+}
+.btn-delete:hover {
+    background: #f09595;
+}
+
+.no-orders {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* ══════════════════════════════════════════
+   MODAL DETAIL PESANAN
+   Teknik "faux modal" — tidak pakai position:fixed.
+   Di proyek nyata bebas diganti position:fixed.
+   ══════════════════════════════════════════ */
+.modal-wrap {
+    display: none;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 500px;
+}
+.modal-wrap.open {
+    display: flex;
+}
+
+.modal-box {
+    background: #fff;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 480px;
+    overflow: hidden;
+}
+
+.modal-top {
+    background: var(--forest);
+    padding: 14px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.modal-top h3 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 15px;
+    color: var(--cream);
+}
+.modal-close {
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    color: var(--cream);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.modal-content {
+    padding: 16px;
+}
+
+.modal-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 0;
+    border-bottom: 0.5px solid var(--sand);
+    font-size: 13px;
+    gap: 12px;
+}
+.modal-row:last-child {
+    border-bottom: none;
+}
+.modal-row .ml {
+    color: var(--muted);
+    flex-shrink: 0;
+}
+.modal-row .mr {
+    font-weight: 500;
+    color: var(--ink);
+    text-align: right;
+}
+
+.modal-actions {
+    padding: 12px 16px;
+    display: flex;
+    gap: 8px;
+    border-top: 0.5px solid var(--sand);
+}
+.modal-actions .action-btn {
+    flex: 1;
+}
+
+/* ══════════════════════════════════════════
+   TOAST NOTIFIKASI
+   ══════════════════════════════════════════ */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--forest);
+    color: var(--cream);
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s;
+    z-index: 9999;
+    pointer-events: none;
+    box-shadow: 0 8px 24px rgba(26, 51, 40, 0.25);
+}
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════ */
+@media (max-width: 640px) {
+    .sf-row {
+        grid-template-columns: 1fr;
+    }
+    .sf-row3 {
+        grid-template-columns: 1fr 1fr;
+    }
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .form-field.full {
+        grid-column: 1;
+    }
+    .order-details {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 400px) {
+    .sf-row3 {
+        grid-template-columns: 1fr;
+    }
+}

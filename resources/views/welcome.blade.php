@@ -740,6 +740,15 @@
             line-height: 1.7;
         }
 
+        .cta-banner::before {
+            pointer-events: none;
+        }
+
+        .btn {
+            position: relative;
+            z-index: 2;
+        }
+
         /* ============================================================
            FOOTER
         ============================================================ */
@@ -924,7 +933,7 @@
                     <option>Supir Saja</option>
                 </select>
             </div>
-            <button class="search-bar__btn">Cari Sekarang →</button>
+            <a href="#" class="btn btn--primary">Cari Perjalanan</a>
         </div>
     </div>
 
